@@ -21,10 +21,10 @@ import { authClient } from "@/lib/auth-client"
 
 const signUpSchema = z
   .object({
-    name: z.string().min(1, { message: "Name is required" }),
-    email: z.string().email({ message: "Enter a valid email address" }),
-    password: z.string().min(8, { message: "Password must be at least 8 characters" }),
-    confirmPassword: z.string().min(1, { message: "Please confirm your password" }),
+    name: z.string().min(1, { message: " *Required" }),
+    email: z.string().email({ message: "*valid email address" }),
+    password: z.string().min(8, { message: "*at least 8 characters" }),
+    confirmPassword: z.string().min(1, { message: "*must match" }),
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: "Passwords do not match",
@@ -90,7 +90,10 @@ export const SignUpView = () => {
                   control={form.control}
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-gray-200">Name</FormLabel>
+                      <div className="flex items-center gap-2 mb-1">
+                        <FormLabel className="text-gray-200 mb-0">Name</FormLabel>
+                        <FormMessage className="text-xs" />
+                      </div>
                       <FormControl>
                         <Input
                           type="text"
@@ -99,7 +102,6 @@ export const SignUpView = () => {
                           {...field}
                         />
                       </FormControl>
-                      <FormMessage />
                     </FormItem>
                   )}
                 />
@@ -108,7 +110,10 @@ export const SignUpView = () => {
                   control={form.control}
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-gray-200">Email</FormLabel>
+                      <div className="flex items-center gap-2 mb-1">
+                        <FormLabel className="text-gray-200 mb-0">Email</FormLabel>
+                        <FormMessage className="text-xs" />
+                      </div>
                       <FormControl>
                         <Input
                           type="email"
@@ -117,7 +122,6 @@ export const SignUpView = () => {
                           {...field}
                         />
                       </FormControl>
-                      <FormMessage />
                     </FormItem>
                   )}
                 />
@@ -126,7 +130,10 @@ export const SignUpView = () => {
                   control={form.control}
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-gray-200">Password</FormLabel>
+                      <div className="flex items-center gap-2 mb-1">
+                        <FormLabel className="text-gray-200 mb-0">Password</FormLabel>
+                        <FormMessage className="text-xs" />
+                      </div>
                       <FormControl>
                         <Input
                           type="password"
@@ -135,7 +142,6 @@ export const SignUpView = () => {
                           {...field}
                         />
                       </FormControl>
-                      <FormMessage />
                     </FormItem>
                   )}
                 />
@@ -144,7 +150,10 @@ export const SignUpView = () => {
                   control={form.control}
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-gray-200">Confirm Password</FormLabel>
+                      <div className="flex items-center gap-2 mb-1">
+                        <FormLabel className="text-gray-200 mb-0">Confirm Password</FormLabel>
+                        <FormMessage className="text-xs" />
+                      </div>
                       <FormControl>
                         <Input
                           type="password"
@@ -153,7 +162,6 @@ export const SignUpView = () => {
                           {...field}
                         />
                       </FormControl>
-                      <FormMessage />
                     </FormItem>
                   )}
                 />
