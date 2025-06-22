@@ -18,6 +18,8 @@ import {
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert"
 import { useRouter } from "next/navigation"
 import { authClient } from "@/lib/auth-client"
+import { FaGithub, FaGoogle ,FaTwitter} from "react-icons/fa";
+
 
 const signUpSchema = z
   .object({
@@ -58,6 +60,7 @@ export const SignUpView = () => {
         name: data.name,
         email: data.email,
         password: data.password,
+        callbackURL:"/"
       },
       {
         onSuccess: () => {
@@ -74,6 +77,26 @@ export const SignUpView = () => {
       }
     )
   }
+
+const onSocial = (provider:"github" | "google") => {
+    setError(null)
+    setIsLoading(true)
+    authClient.signIn.social(
+      {
+        provider: provider,
+        callbackURL:"/"
+      },
+      {
+        onSuccess: () => {
+          setIsLoading(false)
+        },
+        onError: ({ error }) => {
+          setError(error.message)
+          setIsLoading(false)
+        }
+      }
+    );
+  };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#0a101a] p-4">
@@ -172,14 +195,16 @@ export const SignUpView = () => {
                   <div className="flex-1 h-px bg-gray-700" />
                 </div>
                 <div className="flex flex-row gap-3">
-                  <Button type="button" className="flex-1 h-11 flex items-center justify-center rounded-lg bg-[#232b3a] border border-gray-700 shadow-sm hover:shadow-md transition-all">
-                    <img src="/icons8-google.svg" alt="Google" className="w-6 h-6" />
+                  <Button type="button" className="flex-1 h-11 flex items-center justify-center rounded-lg bg-[#232b3a] border border-gray-700 shadow-sm hover:shadow-md transition-all"
+                  onClick={()=> onSocial("google")}>
+                    <FaGoogle />
+                  </Button>
+                  <Button type="button" className="flex-1 h-11 flex items-center justify-center rounded-lg bg-[#232b3a] border border-gray-700 shadow-sm hover:shadow-md transition-all"
+                  onClick={()=> onSocial("github")}>
+                    <FaGithub />
                   </Button>
                   <Button type="button" className="flex-1 h-11 flex items-center justify-center rounded-lg bg-[#232b3a] border border-gray-700 shadow-sm hover:shadow-md transition-all">
-                    <img src="/icons8-github.svg" alt="GitHub" className="w-6 h-6" />
-                  </Button>
-                  <Button type="button" className="flex-1 h-11 flex items-center justify-center rounded-lg bg-[#232b3a] border border-gray-700 shadow-sm hover:shadow-md transition-all">
-                    <img src="/icons8-twitter (2).svg" alt="Twitter" className="w-6 h-6" />
+                    <FaTwitter />
                   </Button>
                 </div>
               </form>
