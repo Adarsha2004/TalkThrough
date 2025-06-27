@@ -8,45 +8,115 @@ import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Drawer, DrawerContent, DrawerHeader, DrawerTitle } from "@/components/ui/drawer";
 import { useIsMobile } from "@/hooks/use-mobile";
-import { useState } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { AgentForm } from "../components/agent-form";
+import { DataTable } from "../components/data-table";
+import { columns } from "../components/columns";
+import { MakeEmptyState } from "../components/empty-state";
+import { useAgentsFilters } from "../../hooks/use-agents-filters";
+import { DataPagination } from "../components/data-pagination";
+
+function useDebouncedValue<T>(value: T, delay: number): T {
+  const [debounced, setDebounced] = useState<T>(value);
+  useEffect(() => {
+    const handler = setTimeout(() => setDebounced(value), delay);
+    return () => clearTimeout(handler);
+  }, [value, delay]);
+  return debounced;
+}
+
+function AgentsTable({ search, page, setFilters }: { search: string; page: number; setFilters: (filters: any) => void }) {
+  const trpc = useTRPC();
+  const debouncedSearch = useDebouncedValue(search, 300);
+  const { data, isLoading, isError, error } = useSuspenseQuery(
+    trpc.agents.getMany.queryOptions({ search: debouncedSearch, page })
+  );
+  
+
+  const filteredData = data?.items?.filter(agent =>
+    agent.name.toLowerCase().includes(debouncedSearch.toLowerCase())
+  );
+
+  if (isError && error?.data?.code === "UNAUTHORIZED") {
+    return <div className="text-center text-red-500 mt-8">Please log in to view your agents.</div>;
+  }
+
+  if (isLoading) {
+    return <div className="p-4">Loading...</div>;
+  }
+
+  if (!filteredData || filteredData.length === 0) {
+    return <MakeEmptyState />;
+  }
+
+  return (
+    <div className="p-4">
+      <DataTable data={filteredData} columns={columns} />
+      <DataPagination
+        page={page}
+        totalPages={data?.totalPages || 1}
+        onPageChange={(page: number) => setFilters({ page: Math.max(1, page) })}
+      />
+    </div>
+  );
+}
 
 export const AgentsView = () => {
-    const trpc = useTRPC();
-    const { data, isLoading, isError } = useSuspenseQuery(trpc.agents.getMany.queryOptions());
-    const isMobile = useIsMobile();
-    const [open, setOpen] = useState(false);
+  const [{ search, page }, setFilters] = useAgentsFilters();
+  const isMobile = useIsMobile();
+  const [open, setOpen] = useState(false);
 
-    return (
-        <div>
-            <div className="flex items-center justify-between mb-6">
-                <h1 className="text-2xl font-bold">Agent</h1>
-                <Button onClick={() => setOpen(true)}>+ New Agent</Button>
-            </div>
-            {isMobile ? (
-                <Drawer open={open} onOpenChange={setOpen}>
-                    <DrawerContent>
-                        <DrawerHeader>
-                            <DrawerTitle>New Agent</DrawerTitle>
-                        </DrawerHeader>
-                        <AgentForm onSuccess={() => setOpen(false)}
-                        onCancel={() => setOpen(false)} />
-                    </DrawerContent>
-                </Drawer>
-            ) : (
-                <Dialog open={open} onOpenChange={setOpen}>
-                    <DialogContent>
-                        <DialogHeader>
-                            <DialogTitle>New Agent</DialogTitle>
-                        </DialogHeader>
-                        <AgentForm onSuccess={() => setOpen(false)}
-                        onCancel={() => setOpen(false)} />
-                    </DialogContent>
-                </Dialog>
-            )}
-            {JSON.stringify(data, null, 2)}
+  // Listen for page change event from DataPagination
+  useEffect(() => {
+    const handler = (e: any) => setFilters({ page: e.detail });
+    window.addEventListener("setAgentPage", handler);
+    return () => window.removeEventListener("setAgentPage", handler);
+  }, [setFilters]);
+
+  return (
+    <div>
+      {/* Sticky header with search and actions */}
+      <div className="sticky top-0 z-10 bg-white shadow-sm pb-2 mb-2">
+        <div className="flex items-center justify-between mb-1">
+          <h1 className="text-2xl font-bold">Agent</h1>
+          <Button onClick={() => setOpen(true)}>+ New Agent</Button>
         </div>
-    );
+        <div className="mb-2">
+          <label className="block text-sm font-medium mb-1" htmlFor="agent-search">Search by name</label>
+          <input
+            id="agent-search"
+            type="text"
+            value={search}
+            onChange={e => setFilters({ search: e.target.value })}
+            className="w-full border rounded px-3 py-2"
+            placeholder="Type agent name..."
+          />
+        </div>
+      </div>
+      {isMobile ? (
+        <Drawer open={open} onOpenChange={setOpen}>
+          <DrawerContent>
+            <DrawerHeader>
+              <DrawerTitle>New Agent</DrawerTitle>
+            </DrawerHeader>
+            <AgentForm onSuccess={() => setOpen(false)} onCancel={() => setOpen(false)} />
+          </DrawerContent>
+        </Drawer>
+      ) : (
+        <Dialog open={open} onOpenChange={setOpen}>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>New Agent</DialogTitle>
+            </DialogHeader>
+            <AgentForm onSuccess={() => setOpen(false)} onCancel={() => setOpen(false)} />
+          </DialogContent>
+        </Dialog>
+      )}
+      <Suspense fallback={<div className="flex items-center justify-center h-[calc(100vh-200px)] w-full"><LoadingState title="Loading Agents" description="This may take a few seconds..." /></div>}>
+        <AgentsTable search={search} page={page} setFilters={setFilters} />
+      </Suspense>
+    </div>
+  );
 };
 
 export const AgentsViewLoading = () => {
