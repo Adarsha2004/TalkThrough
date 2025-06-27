@@ -15,6 +15,8 @@ import { columns } from "../components/columns";
 import { MakeEmptyState } from "../components/empty-state";
 import { useAgentsFilters } from "../../hooks/use-agents-filters";
 import { DataPagination } from "../components/data-pagination";
+import { useRouter } from "next/navigation";
+import { NewAgentDialog } from "../components/new-agent-dialog";
 
 function useDebouncedValue<T>(value: T, delay: number): T {
   const [debounced, setDebounced] = useState<T>(value);
@@ -26,6 +28,8 @@ function useDebouncedValue<T>(value: T, delay: number): T {
 }
 
 function AgentsTable({ search, page, setFilters }: { search: string; page: number; setFilters: (filters: any) => void }) {
+    const router=useRouter();
+
   const trpc = useTRPC();
   const debouncedSearch = useDebouncedValue(search, 300);
   const { data, isLoading, isError, error } = useSuspenseQuery(
@@ -51,7 +55,8 @@ function AgentsTable({ search, page, setFilters }: { search: string; page: numbe
 
   return (
     <div className="p-4">
-      <DataTable data={filteredData} columns={columns} />
+      <DataTable data={filteredData} columns={columns} 
+      onRowClick={(row)=>{router.push(`/agents/${row.id}`)}}/>
       <DataPagination
         page={page}
         totalPages={data?.totalPages || 1}
@@ -93,25 +98,7 @@ export const AgentsView = () => {
           />
         </div>
       </div>
-      {isMobile ? (
-        <Drawer open={open} onOpenChange={setOpen}>
-          <DrawerContent>
-            <DrawerHeader>
-              <DrawerTitle>New Agent</DrawerTitle>
-            </DrawerHeader>
-            <AgentForm onSuccess={() => setOpen(false)} onCancel={() => setOpen(false)} />
-          </DrawerContent>
-        </Drawer>
-      ) : (
-        <Dialog open={open} onOpenChange={setOpen}>
-          <DialogContent>
-            <DialogHeader>
-              <DialogTitle>New Agent</DialogTitle>
-            </DialogHeader>
-            <AgentForm onSuccess={() => setOpen(false)} onCancel={() => setOpen(false)} />
-          </DialogContent>
-        </Dialog>
-      )}
+      <NewAgentDialog open={open} onOpenChange={setOpen} isMobile={isMobile} />
       <Suspense fallback={<div className="flex items-center justify-center h-[calc(100vh-200px)] w-full"><LoadingState title="Loading Agents" description="This may take a few seconds..." /></div>}>
         <AgentsTable search={search} page={page} setFilters={setFilters} />
       </Suspense>
