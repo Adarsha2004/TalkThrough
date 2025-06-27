@@ -2,19 +2,71 @@ import { db } from "@/db";
 import { z } from "zod";
 import { agents } from "@/db/schema";
 import { createTRPCRouter, protectedProcedure } from "@/trpc/init";
-import { agentsInsertSchema } from "../schema";
+import { agentsInsertSchema, agentsUpdateSchema } from "../schema";
 import { and, count, desc, eq, getTableColumns, ilike } from "drizzle-orm"
 import { sql } from "drizzle-orm";
 import { DEFAULT_PAGE, DEFAULT_PAGE_SIZE, MAX_PAGE_SIZE, MIN_PAGE_SIZE } from "@/constants";
+import { TRPCError } from "@trpc/server";
 
 
 export const agentRouter = createTRPCRouter({
-    getOne:protectedProcedure.input(z.object({ id:z.string()})).query(async({input}) =>{
+
+    update:protectedProcedure
+    .input(agentsUpdateSchema)
+    .mutation(async({ctx,input})=>{
+        const [updatedAgent] = await db
+        .update(agents)
+        .set(input)
+        .where(
+            and(
+                eq(agents.id,input.id),
+                eq(agents.userId,ctx.auth.user.id)
+            )
+        )
+        .returning();
+        if(!updatedAgent){
+            throw new TRPCError({
+                code:"NOT_FOUND",
+                message:"Agent not Found"
+            })
+        }
+        return updatedAgent;
+    }),
+    remove:protectedProcedure
+    .input(z.object({ id:z.string()}))
+    .mutation(async({ ctx, input }) => {
+        const [removedAgent] = await db
+        .delete(agents)
+        .where(
+            and(
+                eq(agents.id,input.id),
+                eq(agents.userId,ctx.auth.user.id)
+            )
+        )
+        .returning();
+        if(!removedAgent){
+            throw new TRPCError({
+                code:"NOT_FOUND",
+                message:"Agent not Found"
+            })
+        }
+
+        return removedAgent;
+
+    }),
+    getOne:protectedProcedure.input(z.object({ id:z.string()})).query(async({input,ctx}) =>{
         const [existingAgent] =await db.select({
             ...getTableColumns(agents),
             meetingCount: sql<number>`5`,
     }).from(agents)
-        .where(eq(agents.id,input.id));
+        .where(and(
+            eq(agents.id,input.id),
+            eq(agents.userId,ctx.auth.user.id),
+        ));
+
+        if(!existingAgent){
+            throw new TRPCError({code:"NOT_FOUND",message:"Agent not found"});
+        }
 
         // await new Promise((resolve) => setTimeout(resolve,5000));
         // throw new TRPCError({ code:"BAD_REQUEST"});
