@@ -1,0 +1,94 @@
+"use client"
+
+import { ColumnDef } from "@tanstack/react-table"
+import { GeneratedAvatar } from "@/components/generated-avatar"
+import {
+    CircleCheckIcon,
+    CircleXIcon,
+    CircleArrowUpIcon,
+    ClockFadingIcon,
+    LoaderIcon,
+    VideoIcon,
+    CornerDownRightIcon,
+} from "lucide-react"
+import { MeetingGetMany } from "../../types"
+import { format } from "date-fns"
+import { cn } from "@/lib/utils"
+
+function formatDuration(seconds: number) {
+    if (!seconds || isNaN(seconds)) return "—";
+    const h = Math.floor(seconds / 3600);
+    const m = Math.floor((seconds % 3600) / 60);
+    const s = Math.floor(seconds % 60);
+    return [
+        h ? `${h}h` : "",
+        m ? `${m}m` : "",
+        s ? `${s}s` : "",
+    ].filter(Boolean).join(" ") || "0s";
+}
+
+const statusIconMap = {
+    upcoming: LoaderIcon,
+    active: CircleArrowUpIcon,
+    completed: CircleCheckIcon,
+    processing: ClockFadingIcon,
+    cancelled: CircleXIcon,
+}
+
+const statusColorMap = {
+    upcoming: "text-yellow-500",
+    active: "text-blue-500",
+    completed: "text-green-500",
+    processing: "text-orange-500",
+    cancelled: "text-red-500",
+}
+
+export const columns: ColumnDef<MeetingGetMany[number]>[] = [
+    {
+        accessorKey: "name",
+        header: "Meeting",
+        cell: ({ row }) => (
+            <div className="flex flex-col justify-center py-3">
+                <span className="font-bold text-base leading-tight">{row.original.name}</span>
+                <span className="text-xs text-muted-foreground mt-1 flex items-center">
+                    <CornerDownRightIcon className="w-3 h-3 mr-1" />
+                    {row.original.agent?.name ?? "—"}
+                </span>
+            </div>
+        ),
+    },
+    {
+        accessorKey: "status",
+        header: "Status",
+        cell: ({ row }) => {
+            const Icon = statusIconMap[row.original.status] || LoaderIcon;
+            return (
+                <span className={cn("flex items-center gap-1 px-2 py-1 rounded-md text-xs font-medium", statusColorMap[row.original.status], "bg-muted")}> 
+                    <Icon className="w-4 h-4" />
+                    {row.original.status.charAt(0).toUpperCase() + row.original.status.slice(1)}
+                </span>
+            );
+        },
+    },
+    {
+        accessorKey: "duration",
+        header: "Duration",
+        cell: ({ row }) =>
+            row.original.duration && row.original.duration > 0 ? (
+                <span className="flex items-center text-xs">
+                    <ClockFadingIcon className="inline w-4 h-4 mr-1 text-muted-foreground" />
+                    {formatDuration(row.original.duration)}
+                </span>
+            ) : (
+                <span className="text-muted-foreground flex items-center text-xs">
+                    <ClockFadingIcon className="inline w-4 h-4 mr-1" />
+                    No Duration
+                </span>
+            ),
+    },
+    {
+        accessorKey: "createdAT",
+        header: "Created At",
+        cell: ({ row }) => <span className="text-xs">{format(new Date(row.original.createdAT), "PP")}</span>,
+    },
+];
