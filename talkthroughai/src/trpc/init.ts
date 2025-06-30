@@ -1,13 +1,16 @@
 import { auth } from '@/lib/auth';
 import { initTRPC, TRPCError } from '@trpc/server';
 import { cache } from 'react';
-
 import { headers } from 'next/headers';
+
 export const createTRPCContext = cache(async () => {
   /**
    * @see: https://trpc.io/docs/server/context
    */
-  return { userId: 'user_123' };
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+  return { auth: session };
 });
 // Avoid exporting the entire t-object
 // since it's not very descriptive.
