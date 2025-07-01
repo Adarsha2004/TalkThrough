@@ -14,6 +14,7 @@ import {
 import { MeetingGetMany } from "../../types"
 import { format } from "date-fns"
 import { cn } from "@/lib/utils"
+import Link from "next/link"
 
 function formatDuration(seconds: number) {
     if (!seconds || isNaN(seconds)) return "—";
@@ -49,7 +50,12 @@ export const columns: ColumnDef<MeetingGetMany[number]>[] = [
         header: "Meeting",
         cell: ({ row }) => (
             <div className="flex flex-col justify-center py-3">
-                <span className="font-bold text-base leading-tight">{row.original.name}</span>
+                <Link
+                    href={`/meetings/${row.original.id}`}
+                    className="font-bold text-base leading-tight hover:underline"
+                >
+                    {row.original.name}
+                </Link>
                 <span className="text-xs text-muted-foreground mt-1 flex items-center">
                     <CornerDownRightIcon className="w-3 h-3 mr-1" />
                     {row.original.agent?.name ?? "—"}
