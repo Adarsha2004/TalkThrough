@@ -7,6 +7,8 @@ import { Badge } from "@/components/ui/badge"
 import { VideoIcon } from "lucide-react"
 
 
+
+
 export const columns: ColumnDef<AgentGetMany[number]>[] = [
   {
     accessorKey: "name",
@@ -15,7 +17,7 @@ export const columns: ColumnDef<AgentGetMany[number]>[] = [
       <div className="flex items-center gap-x-4 border-b last:border-b-0 py-2">
         <GeneratedAvatar
           variant="botttsNeutral"
-          seed={row.original.id}
+          seed={row.original.name}
           className="w-12 h-12 min-w-12 min-h-12"
         />
         <div className="flex flex-col justify-center">

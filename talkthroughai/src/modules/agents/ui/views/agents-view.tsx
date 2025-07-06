@@ -93,7 +93,7 @@ export const AgentsView = () => {
             type="text"
             value={search}
             onChange={e => setFilters({ search: e.target.value })}
-            className="w-full border rounded px-3 py-2"
+            className="w-full border rounded px-3 py-2 bg-background text-foreground border-input"
             placeholder="Type agent name..."
           />
         </div>

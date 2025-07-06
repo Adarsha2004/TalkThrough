@@ -9,6 +9,8 @@ import { useTRPC } from "@/trpc/client";
 import { GeneratedAvatar } from "@/components/generated-avatar";
 import { Badge } from "@/components/ui/badge";
 import { VideoIcon } from "lucide-react";
+
+
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { useConfirm } from "@/hooks/use-confirm";
@@ -76,7 +78,7 @@ import { useIsMobile } from "@/hooks/use-mobile";
                     <div className="flex items-center gap-x-3">
                         <GeneratedAvatar
                         variant="botttsNeutral"
-                        seed={data.id}
+                        seed={data.name}
                         className="size-10"
                         />
                         <h2 className="text-2xl font-medium">{data.name}</h2>

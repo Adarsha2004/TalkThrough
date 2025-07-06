@@ -9,6 +9,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { GeneratedAvatar } from "@/components/generated-avatar";
 import { Textarea } from "@/components/ui/textarea";
 
+
+
 import {
     Form,
     FormControl,
@@ -94,7 +96,7 @@ export const AgentForm = ({
         <Form {...form}>
             <form className="space-y-4" onSubmit={form.handleSubmit(onSubmit)}>
                 <GeneratedAvatar
-                    seed={(form.watch("name") || initialValues?.id) ?? ""}
+                    seed={initialValues?.name || form.watch("name") || ""}
                     variant="botttsNeutral"
                     className="w-16 h-16 ml-0"
                 />
