@@ -12,6 +12,7 @@ import {
     SidebarMenu,
     SidebarMenuItem,
     SidebarMenuButton,
+    useSidebar,
 } from "@/components/ui/sidebar";
 import { cn } from "@/lib/utils";
 import { DashboardUserButton } from "./dashboard-user-button";
@@ -39,6 +40,12 @@ const secondSection =[
 
 export function DashboardSidebar(){
     const pathname = usePathname();
+    const { setOpenMobile } = useSidebar();
+    
+    const handleMenuClick = () => {
+        setOpenMobile(false);
+    };
+    
     return (
         <Sidebar>
             <SidebarHeader className="flex-shrink-0 relative p-4 border border-gray-700 bg-background">
@@ -56,7 +63,7 @@ export function DashboardSidebar(){
                 <SidebarMenu>
                     {firstSection.map((item) =>(
                         <SidebarMenuItem key={item.label}>
-                            <Link href={item.href}>
+                            <Link href={item.href} onClick={handleMenuClick}>
                                 <SidebarMenuButton
                                     isActive={pathname === item.href}
                                     className="w-full"
@@ -72,7 +79,7 @@ export function DashboardSidebar(){
                 <SidebarMenu>
                     {secondSection.map((item) =>(
                         <SidebarMenuItem key={item.label}>
-                            <Link href={item.href}>
+                            <Link href={item.href} onClick={handleMenuClick}>
                                 <SidebarMenuButton
                                     isActive={pathname === item.href}
                                     className="w-full"

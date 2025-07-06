@@ -64,19 +64,32 @@ export const ChatUI = ({
   }
 
   return (
-    <div className="bg-background rounded-lg border overflow-hidden">
-      <Chat client={client}>
-        <Channel channel={channel}>
-            <Window>
-              <div className="flex-1 overflow-y-auto max-h-[calc(100vh-23rem)] border-b">
-                <MessageList />
-              </div>
-              <MessageInput />
-            </Window>
-            <Thread />
-        </Channel>
-
-      </Chat>
-    </div>
+    <>
+      <style jsx global>{`
+        .str-chat {
+          background-color: hsl(var(--background)) !important;
+        }
+        .str-chat__input-flat {
+          background-color: hsl(var(--background)) !important;
+        }
+        .str-chat__input-flat textarea {
+          background-color: hsl(var(--background)) !important;
+          color: hsl(var(--foreground)) !important;
+        }
+      `}</style>
+      <div className="bg-background rounded-lg border overflow-hidden">
+        <Chat client={client}>
+          <Channel channel={channel}>
+              <Window>
+                <div className="flex-1 overflow-y-auto max-h-[calc(100vh-23rem)] border-b">
+                  <MessageList />
+                </div>
+                <MessageInput />
+              </Window>
+              <Thread />
+          </Channel>
+        </Chat>
+      </div>
+    </>
   )
 }
