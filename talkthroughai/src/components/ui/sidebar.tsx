@@ -517,9 +517,24 @@ function SidebarMenuButton({
       data-sidebar="menu-button"
       data-size={size}
       data-active={isActive}
-      className={cn(sidebarMenuButtonVariants({ variant, size }), className)}
+      className={cn(
+        sidebarMenuButtonVariants({ variant, size }),
+        "relative group",
+        isActive ? "border border-gray-700" : "border border-transparent",
+        "hover:border-gray-700 focus:border-gray-700",
+        className
+      )}
       {...props}
-    />
+    >
+      {/* L-shaped corners on active/hover/focus */}
+      <div className="pointer-events-none">
+        <div className={cn("absolute top-0 left-0 w-2 h-2 border-t border-l border-gray-500 transition-opacity pointer-events-none", (isActive ? "opacity-100" : "opacity-0"), "hover:opacity-100 focus:opacity-100")}/>
+        <div className={cn("absolute top-0 right-0 w-2 h-2 border-t border-r border-gray-500 transition-opacity pointer-events-none", (isActive ? "opacity-100" : "opacity-0"), "hover:opacity-100 focus:opacity-100")}/>
+        <div className={cn("absolute bottom-0 left-0 w-2 h-2 border-b border-l border-gray-500 transition-opacity pointer-events-none", (isActive ? "opacity-100" : "opacity-0"), "hover:opacity-100 focus:opacity-100")}/>
+        <div className={cn("absolute bottom-0 right-0 w-2 h-2 border-b border-r border-gray-500 transition-opacity pointer-events-none", (isActive ? "opacity-100" : "opacity-0"), "hover:opacity-100 focus:opacity-100")}/>
+      </div>
+      {props.children}
+    </Comp>
   )
 
   if (!tooltip) {
@@ -540,7 +555,14 @@ function SidebarMenuButton({
         align="center"
         hidden={state !== "collapsed" || isMobile}
         {...tooltip}
-      />
+      >
+        <div className="pointer-events-none">
+          <div className={cn("absolute top-0 left-0 w-2 h-2 border-t border-l border-gray-500 transition-opacity pointer-events-none", (isActive ? "opacity-100" : "opacity-0"), "hover:opacity-100 focus:opacity-100")}/>
+          <div className={cn("absolute top-0 right-0 w-2 h-2 border-t border-r border-gray-500 transition-opacity pointer-events-none", (isActive ? "opacity-100" : "opacity-0"), "hover:opacity-100 focus:opacity-100")}/>
+          <div className={cn("absolute bottom-0 left-0 w-2 h-2 border-b border-l border-gray-500 transition-opacity pointer-events-none", (isActive ? "opacity-100" : "opacity-0"), "hover:opacity-100 focus:opacity-100")}/>
+          <div className={cn("absolute bottom-0 right-0 w-2 h-2 border-b border-r border-gray-500 transition-opacity pointer-events-none", (isActive ? "opacity-100" : "opacity-0"), "hover:opacity-100 focus:opacity-100")}/>
+        </div>
+      </TooltipContent>
     </Tooltip>
   )
 }
