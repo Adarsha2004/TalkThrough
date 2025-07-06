@@ -81,7 +81,7 @@ export const AgentsView = () => {
   return (
     <div>
       {/* Sticky header with search and actions */}
-      <div className="sticky top-0 z-10 bg-white shadow-sm pb-2 mb-2">
+      <div className="sticky top-0 z-10 bg-background shadow-sm pb-2 mb-2">
         <div className="flex items-center justify-between mb-1">
           <h1 className="text-2xl font-bold">Agent</h1>
           <Button onClick={() => setOpen(true)}>+ New Agent</Button>
