@@ -52,7 +52,7 @@ export const agents = pgTable("agents", {
 		.primaryKey()
 		.$defaultFn(()=>nanoid()),
 	name:text("name").notNull(),
-	userId:text("useer_id")
+	userId:text("user_id")
 		.notNull()
 		.references(()=>user.id, {onDelete:"cascade"}),
 	instructions:text("instructions").notNull(),
@@ -73,7 +73,7 @@ export const meetings = pgTable("meetings", {
 		.primaryKey()
 		.$defaultFn(()=>nanoid()),
 	name:text("name").notNull(),
-	userId:text("useer_id")
+	userId:text("user_id")
 		.notNull()
 		.references(()=>user.id, {onDelete:"cascade"}),
 	agentId:text("agent_id")
