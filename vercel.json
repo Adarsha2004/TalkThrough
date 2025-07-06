@@ -1,3 +1,4 @@
 {
-  "rootDirectory": "talkthroughai"
+  "buildCommand": "cd talkthroughai && npm run build",
+  "outputDirectory": "talkthroughai/.next"
 } 
