@@ -81,8 +81,8 @@ export const columns: ColumnDef<MeetingGetMany[number]>[] = [
             ),
     },
     {
-        accessorKey: "createdAT",
+        accessorKey: "createdAt",
         header: "Created At",
-        cell: ({ row }) => <span className="text-xs">{format(new Date(row.original.createdAT), "PP")}</span>,
+        cell: ({ row }) => <span className="text-xs">{format(new Date(row.original.createdAt), "PP")}</span>,
     },
 ];

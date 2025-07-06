@@ -15,11 +15,18 @@ const Page = async () => {
     redirect("/sign-in");
   }
 
-  // Check if user has agents, if not seed them (only for new users)
+  // Check if user has agents, if not seed them
   const userId = session.user.id;
   const existingAgents = await db.select().from(agents).where(eq(agents.userId, userId));
   
-  if (existingAgents.length === 0) {
+  // Only seed agents for completely new users (who have never had agents)
+  // You could add a flag to the user table or check creation date
+  const userCreatedAt = session.user.createdAt;
+  const isNewUser = userCreatedAt && (new Date().getTime() - new Date(userCreatedAt).getTime()) < 60000; // Within 1 minute of creation
+  
+  if (existingAgents.length === 0 && isNewUser) {
+    console.log("New user detected, seeding defaults:", userId);
+    
     const defaultAgents = [
       {
         name: "Financial Advisory",
@@ -45,6 +52,8 @@ const Page = async () => {
         userId: userId,
       }))
     );
+    
+    console.log("Default agents seeded for user:", userId);
   }
 
   return <HomeView />;

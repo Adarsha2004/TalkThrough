@@ -295,7 +295,7 @@ export const meetingsRouter = createTRPCRouter({
                         agentId ? eq(meetings.agentId, agentId) : undefined,
                     )
                 )
-                .orderBy(desc(meetings.createdAT), desc(meetings.id))
+                .orderBy(desc(meetings.createdAt), desc(meetings.id))
                 .limit(pageSize)
                 .offset((page - 1) * pageSize);
             const [total] = await db.select({ count: count() }).from(meetings)

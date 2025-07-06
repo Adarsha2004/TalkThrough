@@ -56,7 +56,7 @@ export const agents = pgTable("agents", {
 		.notNull()
 		.references(()=>user.id, {onDelete:"cascade"}),
 	instructions:text("instructions").notNull(),
-	createdAT:timestamp("created_at").notNull().defaultNow(),
+	createdAt:timestamp("created_at").notNull().defaultNow(),
 	updatedAt:timestamp("updated_at").notNull().defaultNow(),
 })
 
@@ -85,7 +85,7 @@ export const meetings = pgTable("meetings", {
 	transcriptURL:text("transcript_url"),
 	recordingURL:text("recording_url"),
 	summary:text("summary"),
-	createdAT:timestamp("created_at").notNull().defaultNow(),
+	createdAt:timestamp("created_at").notNull().defaultNow(),
 	updatedAt:timestamp("updated_at").notNull().defaultNow(),
 })
 
