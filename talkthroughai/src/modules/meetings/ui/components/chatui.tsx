@@ -64,7 +64,7 @@ export const ChatUI = ({
   }
 
   return (
-    <div className="bg-white rounded-lg border overflow-hidden">
+    <div className="bg-background rounded-lg border overflow-hidden">
       <Chat client={client}>
         <Channel channel={channel}>
             <Window>

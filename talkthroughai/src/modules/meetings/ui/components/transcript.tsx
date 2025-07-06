@@ -23,7 +23,7 @@ export const Transcript = ({ meetingId }: Props) => {
 );
 
     return (
-        <div className="bg-white rounded-lg border px-4 py-5 flex flex-col gap-y-4 w-full">
+        <div className="bg-background rounded-lg border px-4 py-5 flex flex-col gap-y-4 w-full">
             <p className="text-sm font-medium">Transcript</p>
             <div className="relative">
                 <Input
