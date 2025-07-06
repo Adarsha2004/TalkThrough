@@ -15,8 +15,6 @@ import { Button } from "@/components/ui/button";
 import { generateAvatarUri } from "@/lib/avatar";
 
 import "@stream-io/video-react-sdk/dist/css/styles.css";
-import { auth } from "@/lib/auth";
-import { GeneratedAvatar } from "@/components/generated-avatar";
 
 
 interface Props {

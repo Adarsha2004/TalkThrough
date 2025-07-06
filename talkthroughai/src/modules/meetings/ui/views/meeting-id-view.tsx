@@ -34,27 +34,21 @@ const MeetingContent = ({ meetingId }: Props) => {
     }
 
     // Status flags
-    const isActive = data.status === "active";
-    const isUpcoming = data.status === "upcoming";
-    const isCancelled = data.status === "cancelled";
-    const isCompleted = data.status === "completed";
-    const isProcessing = data.status === "processing";
-
     let statusLabel = "";
     let statusColor = "";
-    if (isActive) {
+    if (data.status === "active") {
         statusLabel = "Active";
         statusColor = "bg-green-500";
-    } else if (isUpcoming) {
+    } else if (data.status === "upcoming") {
         statusLabel = "Upcoming";
         statusColor = "bg-blue-500";
-    } else if (isCancelled) {
+    } else if (data.status === "cancelled") {
         statusLabel = "Cancelled";
         statusColor = "bg-red-500";
-    } else if (isCompleted) {
+    } else if (data.status === "completed") {
         statusLabel = "Completed";
         statusColor = "bg-gray-500";
-    } else if (isProcessing) {
+    } else if (data.status === "processing") {
         statusLabel = "Processing";
         statusColor = "bg-yellow-500";
     }
@@ -68,19 +62,19 @@ const MeetingContent = ({ meetingId }: Props) => {
                 <span>Status:</span>
                 <span className={`px-2 py-1 rounded text-white text-xs font-semibold ${statusColor}`}>{statusLabel}</span>
             </div>
-            {isUpcoming && (
+            {data.status === "upcoming" && (
                 <UpcomingState meetingId={meetingId} name={data.name} agentID={data.agentId} />
             )}
-            {isActive && (
+            {data.status === "active" && (
                 <ActiveState meetingId={meetingId} />
             )}
-            {isCancelled && (
+            {data.status === "cancelled" && (
                 <CancelledState />
             )}
-            {isProcessing && (
+            {data.status === "processing" && (
                 <ProcessingState />
             )}
-            {isCompleted && (
+            {data.status === "completed" && (
                 <CompletedState data={data} />
             )}
         </div>
@@ -129,11 +123,6 @@ export const MeetingIdView = ({ meetingId }: Props) => {
         />;
     }
 
-    const isActive = data.status === "active";
-    const isUpcoming = data.status === "upcoming";
-    const isCancelled = data.status === "cancelled";
-    const isCompleted = data.status === "completed";
-    const isProcessing = data.status === "processing";
 
 
     return (

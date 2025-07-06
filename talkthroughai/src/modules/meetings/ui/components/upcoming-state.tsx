@@ -1,7 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useTRPC } from "@/trpc/client";
-import { MeetingStatus } from "@/modules/meetings/types";
 import React from "react";
 import Link from "next/link";
 
@@ -22,11 +21,11 @@ export function UpcomingState({ meetingId, name, agentID }: UpcomingStateProps) 
   }));
 
   const handleStart = () => {
-    updateMeeting.mutate({ id: meetingId, name, agentID, status: MeetingStatus.Active } as any);
+    updateMeeting.mutate({ id: meetingId, name, agentID });
   };
 
   const handleCancel = () => {
-    updateMeeting.mutate({ id: meetingId, name, agentID, status: MeetingStatus.Cancelled } as any);
+    updateMeeting.mutate({ id: meetingId, name, agentID });
   };
 
   return (

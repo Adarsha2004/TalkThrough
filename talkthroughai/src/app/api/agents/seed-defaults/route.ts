@@ -38,7 +38,7 @@ export async function POST(req: NextRequest) {
   await db.insert(agents).values(
     defaultAgents.map(agent => ({
       ...agent,
-      userId,
+      userId: userId,
     }))
   );
 

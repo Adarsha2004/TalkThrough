@@ -1,7 +1,7 @@
 "use client"
 
 import { ColumnDef } from "@tanstack/react-table"
-import { AgentGetMany, AgentGetOne } from "../../types"
+import { AgentGetMany } from "../../types"
 import { GeneratedAvatar } from "@/components/generated-avatar"
 import { Badge } from "@/components/ui/badge"
 import { VideoIcon } from "lucide-react"
@@ -22,7 +22,9 @@ export const columns: ColumnDef<AgentGetMany[number]>[] = [
           <span className="font-bold text-base">{row.original.name}</span>
           <span className="text-xs text-muted-foreground flex items-center">
             <span className="mr-1">↳</span>
-            {row.original.instructions}
+            <span style={{ maxWidth: 180, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', display: 'inline-block' }}>
+              {row.original.instructions}
+            </span>
           </span>
         </div>
       </div>
@@ -33,10 +35,15 @@ export const columns: ColumnDef<AgentGetMany[number]>[] = [
     header:"Meeting",
     cell:({row}) => (
         <Badge
-        variant="outline"
-        className="flex items-center gap-x-2 [&svg]:size-4">
-            <VideoIcon className="tex-blue-700"/>
-            {row.original.meetingCount} {row.original.meetingCount === 1? "meeting": "meetings"}
+          variant="outline"
+          className="flex items-center gap-x-2 [&svg]:size-4 max-w-[120px] truncate"
+          style={{overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap'}}
+        >
+          <VideoIcon className="tex-blue-700"/>
+          <span className="truncate">
+            {row.original.meetingCount}
+            <span className="hidden sm:inline"> {row.original.meetingCount === 1 ? "meeting" : "meetings"}</span>
+          </span>
         </Badge>
     )
   }

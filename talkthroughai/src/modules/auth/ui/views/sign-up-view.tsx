@@ -67,12 +67,19 @@ export const SignUpView = () => {
         callbackURL: "/",
       },
       {
-        onSuccess: () => {
+        onSuccess: async (session) => {
           setShowSuccess(true)
           setIsLoading(false)
-          setTimeout(() => {
-            router.push("/")
-          }, 1500)
+          // Use userId from session if available
+          const userId = session?.data?.user?.id || session?.data?.id;
+          if (userId) {
+            await fetch("/api/agents/seed-defaults", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ userId })
+            });
+          }
+          router.push("/");
         },
         onError: ({ error }) => {
           setError(error.message)
@@ -91,8 +98,17 @@ export const SignUpView = () => {
         callbackURL: "/",
       },
       {
-        onSuccess: () => {
+        onSuccess: async (session) => {
           setIsLoading(false)
+          // Use userId from session if available
+          const userId = session?.data?.user?.id || session?.data?.id;
+          if (userId) {
+            await fetch("/api/agents/seed-defaults", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ userId })
+            });
+          }
         },
         onError: ({ error }) => {
           setError(error.message)

@@ -1,5 +1,5 @@
 import { MeetingsView, MeetingsViewError, MeetingsViewLoading } from "@/modules/meetings/ui/views/meetings-view";
-import { dehydrate, HydrationBoundary, useQueryClient } from "@tanstack/react-query";
+import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 import { getQueryClient, trpc } from "@/trpc/server";
 import { Suspense } from "react";
 import { ErrorBoundary } from "react-error-boundary";
@@ -31,13 +31,15 @@ const Page = async ({ searchParams }: Props) => {
     return (
         <>
         <MeetingListHeader />
-        <HydrationBoundary state={dehydrate(queryClient)}> 
+        <div className="mt-4">
+          <HydrationBoundary state={dehydrate(queryClient)}>
             <Suspense fallback={<MeetingsViewLoading />}>
-                <ErrorBoundary fallback={<MeetingsViewError/>}>
-                    <MeetingsView />
-                </ErrorBoundary>
+              <ErrorBoundary fallback={<MeetingsViewError/>}>
+                <MeetingsView />
+              </ErrorBoundary>
             </Suspense>
-        </HydrationBoundary>
+          </HydrationBoundary>
+        </div>
         </>
     )
 }

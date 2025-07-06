@@ -18,7 +18,6 @@ import { agents,meetings } from "@/db/schema";
 import { streamVideo } from "@/lib/stream-video";
 import { inngest } from "@/inngest/client";
 import { streamchat } from "@/lib/stream-chat";
-import { error } from "console";
 import { generateAvatarUri } from "@/lib/avatar";
 
 

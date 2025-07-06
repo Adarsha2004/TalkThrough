@@ -1,6 +1,6 @@
 "use client";
 
-import { Loader2Icon, LoaderIcon } from "lucide-react";
+import { LoaderIcon } from "lucide-react";
 
 import { authClient } from "@/lib/auth-client";
 import { generateAvatarUri } from "@/lib/avatar";

@@ -10,7 +10,6 @@ import { CommandSelect } from "./command-select";
 
 import { MeetingStatus } from "@/modules/meetings/types";
 import { useMeetingsFilters } from "@/modules/meetings/hooks/use-meetings-filters";
-import { Children } from "react";
 
 
 const options =[{

@@ -4,7 +4,6 @@ import { XIcon } from "lucide-react";
 
 import { useTRPC } from "@/trpc/client";
 import { CommandSelect } from "./command-select";
-import { GeneratedAvatar } from "./generated-avatar";
 
 import { useMeetingsFilters } from "@/modules/meetings/hooks/use-meetings-filters";
 import { DEFAULT_PAGE } from "@/constants";

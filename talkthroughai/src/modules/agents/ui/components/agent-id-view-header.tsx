@@ -1,4 +1,4 @@
-import { ChevronRightIcon,TrashIcon,PencilIcon,MoreVertical } from "lucide-react";
+import { TrashIcon, PencilIcon, MoreVertical, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
     DropdownMenu,
@@ -7,7 +7,6 @@ import {
     DropdownMenuContent
 } from "@/components/ui/dropdown-menu"
 
-import { ChevronRight } from "lucide-react";
 
 import {
     Breadcrumb,

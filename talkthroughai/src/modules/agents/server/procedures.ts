@@ -57,7 +57,10 @@ export const agentRouter = createTRPCRouter({
     getOne:protectedProcedure.input(z.object({ id:z.string()})).query(async({input,ctx}) =>{
         const [existingAgent] =await db.select({
             ...getTableColumns(agents),
-            meetingCount: sql<number>`5`,
+            meetingCount: sql<number>`(
+                SELECT COUNT(*) FROM meetings
+                WHERE meetings.agent_id = agents.id
+            )`,
     }).from(agents)
         .where(and(
             eq(agents.id,input.id),
@@ -86,7 +89,10 @@ export const agentRouter = createTRPCRouter({
         const data =await db.select(
             {
                 ...getTableColumns(agents),
-                meetingCount: sql<number>`5`,
+                meetingCount: sql<number>`(
+                    SELECT COUNT(*) FROM meetings
+                    WHERE meetings.agent_id = agents.id
+                )`,
         }
         ).from(agents)
         .where(

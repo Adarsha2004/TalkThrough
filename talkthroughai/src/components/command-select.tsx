@@ -37,7 +37,6 @@ interface Props{
 export const CommandSelect = ({
     options,
     onSelect,
-    onSearch,
     value,
     placeholder,
     isSearchable = true,

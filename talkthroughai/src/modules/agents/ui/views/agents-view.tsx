@@ -5,11 +5,8 @@ import { useTRPC } from "@/trpc/client";
 import { LoadingState } from "@/components/loading-state";
 import { ErrorState } from "@/components/error-state";
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { Drawer, DrawerContent, DrawerHeader, DrawerTitle } from "@/components/ui/drawer";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useState, useEffect, Suspense } from "react";
-import { AgentForm } from "../components/agent-form";
 import { DataTable } from "../components/data-table";
 import { columns } from "../components/columns";
 import { MakeEmptyState } from "../components/empty-state";
@@ -27,7 +24,7 @@ function useDebouncedValue<T>(value: T, delay: number): T {
   return debounced;
 }
 
-function AgentsTable({ search, page, setFilters }: { search: string; page: number; setFilters: (filters: any) => void }) {
+function AgentsTable({ search, page, setFilters }: { search: string; page: number; setFilters: (filters: { search?: string; page?: number }) => void }) {
     const router=useRouter();
 
   const trpc = useTRPC();
@@ -73,7 +70,10 @@ export const AgentsView = () => {
 
   // Listen for page change event from DataPagination
   useEffect(() => {
-    const handler = (e: any) => setFilters({ page: e.detail });
+    const handler = (e: Event) => {
+      const customEvent = e as CustomEvent<number>;
+      setFilters({ page: customEvent.detail });
+    };
     window.addEventListener("setAgentPage", handler);
     return () => window.removeEventListener("setAgentPage", handler);
   }, [setFilters]);

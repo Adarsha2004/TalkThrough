@@ -4,10 +4,8 @@ import { useState } from "react"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { Separator } from "@/components/ui/separator"
 import {
   Form,
   FormField,
@@ -35,7 +33,6 @@ export const SignInView = () => {
     const [error,setError]=useState<string | null>(null)
 
   const [isLoading, setIsLoading] = useState(false)
-  const [showSuccess, setShowSuccess] = useState(false)
   const form = useForm<SignInSchema>({
     resolver: zodResolver(signInSchema),
     defaultValues: {
@@ -44,7 +41,7 @@ export const SignInView = () => {
     },
   })
 
-  const handleSubmit = (data: SignInSchema) => {
+  const handleSubmit = async (data: SignInSchema) => {
     if (!data.email || !data.password) {
       setError("Please fill in all fields")
       return
@@ -63,8 +60,17 @@ export const SignInView = () => {
         callbackURL:"/"
       },
       {
-        onSuccess: () => {
+        onSuccess: async (session) => {
           setIsLoading(false)
+          // Use userId from session if available
+          const userId = session?.data?.user?.id || session?.data?.id;
+          if (userId) {
+            await fetch("/api/agents/seed-defaults", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ userId })
+            });
+          }
           router.push("/");
         },
         onError: () => {
@@ -75,7 +81,7 @@ export const SignInView = () => {
     );
   };
 
-   const onSocial = (provider:"github" | "google") => {
+   const onSocial = async (provider:"github" | "google") => {
     setError(null)
     setIsLoading(true)
     authClient.signIn.social(
@@ -84,8 +90,17 @@ export const SignInView = () => {
         callbackURL:"/"
       },
       {
-        onSuccess: () => {
+        onSuccess: async (session) => {
           setIsLoading(false)
+          // Use userId from session if available
+          const userId = session?.data?.user?.id || session?.data?.id;
+          if (userId) {
+            await fetch("/api/agents/seed-defaults", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ userId })
+            });
+          }
         },
         onError: ({ error }) => {
           setError(error.message)
@@ -201,19 +216,19 @@ export const SignInView = () => {
           </form>
         </Form>
          <div className="text-center text-sm">
-              <p className="text-gray-400">Don't have an account? <Link href="/sign-up" className="font-semibold text-white hover:underline">Sign up</Link></p>
+              <p className="text-gray-400">Don&apos;t have an account? <Link href="/sign-up" className="font-semibold text-white hover:underline">Sign up</Link></p>
           </div>
         <div className="text-center text-xs text-gray-500">
           By logging in, you agree to our <a href="#" className="underline hover:text-white">Terms and Conditions</a> and <a href="#" className="underline hover:text-white">Privacy Policy</a>.
         </div>
       </div>
 
-      {showSuccess && (
+      {error && (
         <div className="mt-4 max-w-sm w-full">
-          <Alert className="bg-green-900/50 border-green-800 text-green-300">
-            <AlertTitle>Success</AlertTitle>
+          <Alert className="bg-red-900/50 border-red-800 text-red-300">
+            <AlertTitle>Error</AlertTitle>
             <AlertDescription>
-              You have signed in successfully!
+              {error}
             </AlertDescription>
           </Alert>
         </div>

@@ -2,8 +2,6 @@
 
 import { authClient } from "@/lib/auth-client";
 import { LoadingState } from "@/components/loading-state";
-import { enIE } from "date-fns/locale";
-import { Description } from "@radix-ui/react-dialog";
 import { ChatUI } from "./chatui";
 
 interface Props {

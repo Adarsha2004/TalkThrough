@@ -1,5 +1,4 @@
 import { useTRPC } from "@/trpc/client";
-import { useRouter } from "next/navigation";
 import { useMutation, useQueryClient, useSuspenseQuery } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -8,7 +7,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 
 import { MeetingGetOne } from "../../types";
 import { CommandSelect } from "@/components/command-select";
-import { GeneratedAvatar } from "@/components/generated-avatar";
 
 import {
     Form,
@@ -16,7 +14,6 @@ import {
     FormField,
     FormItem,
     FormLabel,
-    FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -36,7 +33,6 @@ export const MeetingForm = ({
     onCreateAgent
 }: MeetingFormProps) =>{
     const trpc = useTRPC();
-    const router = useRouter();
     const queryClient = useQueryClient();
 
     // Fetch agents for selection

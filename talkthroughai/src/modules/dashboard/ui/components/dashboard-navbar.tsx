@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/button";
 import { useSidebar } from "@/components/ui/sidebar";
 import { PanelLeftCloseIcon, PanelLeftIcon } from "lucide-react";
 import { Command, CommandInput } from "@/components/ui/command";
-import { SearchIcon } from "lucide-react";
 import { DashbboardCommand } from "./dashboard-command";
 import { useState } from "react";
 import { useEffect } from "react";

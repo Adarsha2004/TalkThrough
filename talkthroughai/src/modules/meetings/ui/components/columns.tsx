@@ -1,14 +1,12 @@
 "use client"
 
 import { ColumnDef } from "@tanstack/react-table"
-import { GeneratedAvatar } from "@/components/generated-avatar"
 import {
     CircleCheckIcon,
     CircleXIcon,
     CircleArrowUpIcon,
     ClockFadingIcon,
     LoaderIcon,
-    VideoIcon,
     CornerDownRightIcon,
 } from "lucide-react"
 import { MeetingGetMany } from "../../types"

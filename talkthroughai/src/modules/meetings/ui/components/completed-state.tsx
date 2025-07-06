@@ -107,8 +107,8 @@ export const CompletedState = ({ data }: Props) => {
                             <div>
                                 <Markdown
                                 components={{
-                                    h1: (props) => (
-                                        <h1 className="text-2xl font-medium mb-6" {...props} />
+                                    h1: () => (
+                                        <h1 className="text-2xl font-medium mb-6" />
                                     ),
                                     h2: (props) => (
                                         <h2 className="text-xl font-medium mb-6" {...props} />
@@ -119,10 +119,10 @@ export const CompletedState = ({ data }: Props) => {
                                     h4: (props) => (
                                         <h4 className="text-base font-medium mb-6" {...props} />
                                     ),
-                                    p: (props) => (
+                                    p: () => (
                                         <p className="mb-6 leading-relaxed"/>
                                     ),
-                                    ul: (props) => (
+                                    ul: () => (
                                         <ul className="list-disc list-inside mb-6"/>
                                     ),
                                     ol: (props) => (
