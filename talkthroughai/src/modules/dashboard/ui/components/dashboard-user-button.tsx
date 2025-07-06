@@ -83,21 +83,29 @@ export const DashboardUserButton = () => {
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
-                 <Button variant="ghost" className="w-full justify-start items-center gap-x-3 px-2.5">
-                    <GeneratedAvatar 
-                        seed={user.name || "User"}
-                        variant="initials"
-                        className="size-8"
-                    />
-                     <span
-                        className={cn(
-                            "truncate transition-opacity duration-200",
-                            state === "collapsed" && "opacity-0"
-                        )}
-                    >
-                        {user.name}
-                    </span>
-                </Button>
+                <div className="relative w-full min-h-[48px]">
+                    {/* L-shaped corners and border */}
+                    <div className="absolute inset-0 pointer-events-none border border-gray-700 rounded-none" />
+                    <div className="absolute top-0 left-0 w-2 h-2 border-t border-l border-gray-500 -mt-px -ml-px pointer-events-none" />
+                    <div className="absolute top-0 right-0 w-2 h-2 border-t border-r border-gray-500 -mt-px -mr-px pointer-events-none" />
+                    <div className="absolute bottom-0 left-0 w-2 h-2 border-b border-l border-gray-500 -mb-px -ml-px pointer-events-none" />
+                    <div className="absolute bottom-0 right-0 w-2 h-2 border-b border-r border-gray-500 -mb-px -mr-px pointer-events-none" />
+                    <Button variant="ghost" className="w-full h-12 justify-start items-center gap-x-3 px-2.5 bg-background">
+                        <GeneratedAvatar 
+                            seed={user.name || "User"}
+                            variant="initials"
+                            className="size-8"
+                        />
+                        <span
+                            className={cn(
+                                "truncate transition-opacity duration-200",
+                                state === "collapsed" && "opacity-0"
+                            )}
+                        >
+                            {user.name}
+                        </span>
+                    </Button>
+                </div>
             </DropdownMenuTrigger>
             <DropdownMenuContent className="w-56" align="end">
                 <div className="p-2">
