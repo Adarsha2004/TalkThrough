@@ -64,22 +64,13 @@ export const SignUpView = () => {
         name: data.name,
         email: data.email,
         password: data.password,
-        callbackURL: "/",
+        callbackURL: "/meetings",
       },
       {
         onSuccess: async (session) => {
           setShowSuccess(true)
           setIsLoading(false)
-          // Use userId from session if available
-          const userId = session?.data?.user?.id || session?.data?.id;
-          if (userId) {
-            await fetch("/api/agents/seed-defaults", {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({ userId })
-            });
-          }
-          router.push("/");
+          router.push("/meetings");
         },
         onError: ({ error }) => {
           setError(error.message)
@@ -95,21 +86,12 @@ export const SignUpView = () => {
     authClient.signIn.social(
       {
         provider: provider,
-        callbackURL: "/",
+        callbackURL: "/meetings",
       },
       {
         onSuccess: async (session) => {
           setIsLoading(false)
-          // Use userId from session if available
-          const userId = session?.data?.user?.id || session?.data?.id;
-          if (userId) {
-            await fetch("/api/agents/seed-defaults", {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({ userId })
-            });
-          }
-          router.push("/");
+          router.push("/meetings");
         },
         onError: ({ error }) => {
           setError(error.message)

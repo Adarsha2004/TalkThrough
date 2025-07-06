@@ -94,8 +94,9 @@ export const AgentForm = ({
         <Form {...form}>
             <form className="space-y-4" onSubmit={form.handleSubmit(onSubmit)}>
                 <GeneratedAvatar
-                    seed={initialValues?.id ?? ""}
+                    seed={(form.watch("name") || initialValues?.id) ?? ""}
                     variant="botttsNeutral"
+                    className="w-16 h-16 ml-0"
                 />
                 <FormField
                 name="name"
@@ -114,7 +115,7 @@ export const AgentForm = ({
                 control={form.control}
                 render={({field}) => (
                     <FormItem>
-                        <FormLabel>Name</FormLabel>
+                        <FormLabel>Instructions</FormLabel>
                         <FormControl>
                             <Textarea {...field} placeholder="e.g. you are a helpful assistant that can solve assignments"/>
                         </FormControl>

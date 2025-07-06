@@ -57,21 +57,12 @@ export const SignInView = () => {
       {
         email: data.email,
         password: data.password,
-        callbackURL:"/"
+        callbackURL:"/meetings"
       },
       {
         onSuccess: async (session) => {
           setIsLoading(false)
-          // Use userId from session if available
-          const userId = session?.data?.user?.id || session?.data?.id;
-          if (userId) {
-            await fetch("/api/agents/seed-defaults", {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({ userId })
-            });
-          }
-          router.push("/");
+          router.push("/meetings");
         },
         onError: () => {
           setError("Invalid email or password")
@@ -87,26 +78,17 @@ export const SignInView = () => {
     authClient.signIn.social(
       {
         provider: provider,
-        callbackURL:"/"
+        callbackURL:"/meetings"
       },
       {
         onSuccess: async (session) => {
           setIsLoading(false)
-          // Use userId from session if available
-          const userId = session?.data?.user?.id || session?.data?.id;
-          if (userId) {
-            await fetch("/api/agents/seed-defaults", {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({ userId })
-            });
-          }
-          router.push("/");
+          router.push("/meetings");
         },
         onError: ({ error }) => {
           setError(error.message)
           setIsLoading(false)
-        }
+        },
       }
     );
   };
