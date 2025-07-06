@@ -109,6 +109,7 @@ export const SignUpView = () => {
               body: JSON.stringify({ userId })
             });
           }
+          router.push("/");
         },
         onError: ({ error }) => {
           setError(error.message)

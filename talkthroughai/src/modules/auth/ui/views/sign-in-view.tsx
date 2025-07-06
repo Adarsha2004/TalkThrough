@@ -101,6 +101,7 @@ export const SignInView = () => {
               body: JSON.stringify({ userId })
             });
           }
+          router.push("/");
         },
         onError: ({ error }) => {
           setError(error.message)
