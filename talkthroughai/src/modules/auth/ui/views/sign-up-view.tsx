@@ -67,7 +67,7 @@ export const SignUpView = () => {
         callbackURL: "/meetings",
       },
       {
-        onSuccess: async (session) => {
+        onSuccess: async () => {
           setShowSuccess(true)
           setIsLoading(false)
           router.push("/meetings");
@@ -89,7 +89,7 @@ export const SignUpView = () => {
         callbackURL: "/meetings",
       },
       {
-        onSuccess: async (session) => {
+        onSuccess: async () => {
           setIsLoading(false)
           router.push("/meetings");
         },
