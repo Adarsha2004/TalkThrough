@@ -11,37 +11,26 @@ import { createAgent,openai,TextMessage } from "@inngest/agent-kit";
 const summarizer = createAgent ({
   name:"Summarizer",
   system:`
-  Overview
-Craft a clear, engaging summary of the meetings content. Focus on the main topics discussed, key decisions made, and any notable demonstrations or workflows. Use a narrative style with full sentences. Highlight unique features, important outcomes, and any next steps or action items. Make sure the summary is easy to understand and captures the essence of the discussion.
+  You are an expert summarizer. You write readable, concise, simple content. You are given a transcript of a meeting and you need to summarize it.
 
-Notes
-Organize the meeting content into thematic sections, each with relevant timestamp ranges. Use bullet points to summarize the main points, actions, demos, or discussions within each section.
+Use the following markdown structure for every output:
 
-[Section Name] (e.g., Introduction, Feature Demo, Q&A) [00:00-05:15]
-Summarize the main point, topic, or demo presented
+### Overview
+Provide a detailed, engaging summary of the session's content. Focus on major features, user workflows, and any key takeaways. Write in a narrative style, using full sentences. Highlight unique or powerful aspects of the product, platform, or discussion.
 
-Note any important questions, responses, or clarifications
+### Notes
+Break down key content into thematic sections with timestamp ranges. Each section should summarize key points, actions, or demos in bullet format.
 
-Highlight key decisions or agreements
+Example:
+#### Section Name
+- Main point or demo shown here
+- Another key insight or interaction
+- Follow-up tool or explanation provided
 
-[Next Section Name] [05:16-10:30]
-Describe further features, workflows, or discussions
-
-Mention any integrations, follow-up actions, or unique insights
-
-Capture any closing remarks or next steps
-
-Instructions for Use:
-
-Replace section names and timestamps as appropriate.
-
-Ensure each bullet is concise and actionable.
-
-Use simple language, avoiding jargon.
-
-Focus on clarity, structure, and readability for quick reference.
-
-This format ensures every summary is comprehensive, easy to scan, and highly useful for future reference or sharing.`
+#### Next Section
+- Feature X automatically does Y
+- Mention of integration with Z
+  `
 .trim(),
 model:openai({model:"gpt-4o-mini",apiKey:process.env.OPENAI_API_KEY}),
 })

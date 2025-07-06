@@ -15,18 +15,8 @@ import { MeetingGetMany } from "../../types"
 import { format } from "date-fns"
 import { cn } from "@/lib/utils"
 import Link from "next/link"
+import { formatDuration } from "@/lib/utils";
 
-function formatDuration(seconds: number) {
-    if (!seconds || isNaN(seconds)) return "—";
-    const h = Math.floor(seconds / 3600);
-    const m = Math.floor((seconds % 3600) / 60);
-    const s = Math.floor(seconds % 60);
-    return [
-        h ? `${h}h` : "",
-        m ? `${m}m` : "",
-        s ? `${s}s` : "",
-    ].filter(Boolean).join(" ") || "0s";
-}
 
 const statusIconMap = {
     upcoming: LoaderIcon,
