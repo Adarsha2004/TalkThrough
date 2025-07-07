@@ -84,5 +84,8 @@ export const columns: ColumnDef<MeetingGetMany[number]>[] = [
         accessorKey: "createdAt",
         header: "Created At",
         cell: ({ row }) => <span className="text-xs">{format(new Date(row.original.createdAt), "PP")}</span>,
+        meta: {
+            className: "hidden lg:table-cell"
+        }
     },
 ];
