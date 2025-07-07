@@ -14,6 +14,10 @@ import {
   TableRow,
 } from "@/components/ui/table"
 
+interface ColumnMeta {
+  className?: string;
+}
+
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
   data: TData[],
@@ -47,7 +51,7 @@ export function DataTable<TData, TValue>({
                   {row.getVisibleCells().map((cell) => (
                     <TableCell 
                       key={cell.id}
-                      className={(cell.column.columnDef.meta as any)?.className}
+                      className={(cell.column.columnDef.meta as ColumnMeta)?.className}
                     >
                       {flexRender(cell.column.columnDef.cell, cell.getContext())}
                     </TableCell>
