@@ -78,7 +78,7 @@ export const DashbboardCommand = ({ open, setOpen }: Props) => {
                 onValueChange={setSearch}
                 autoFocus
             />
-            <CommandList>
+            <CommandList className="max-h-[60vh] overflow-y-auto">
                 {loading && (
                     <CommandItem disabled>
                         <span className="text-muted-foreground">Loading...</span>
@@ -120,7 +120,7 @@ export const DashbboardCommand = ({ open, setOpen }: Props) => {
                     <DrawerHeader>
                         <DrawerTitle>Search Dashboard</DrawerTitle>
                     </DrawerHeader>
-                    <div className="px-4 pb-4">
+                    <div className="px-4 pb-4 max-h-[60vh] overflow-y-auto">
                         {CommandUI}
                     </div>
                 </DrawerContent>

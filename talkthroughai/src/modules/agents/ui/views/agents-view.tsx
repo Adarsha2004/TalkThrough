@@ -14,6 +14,7 @@ import { useAgentsFilters } from "../../hooks/use-agents-filters";
 import { DataPagination } from "../components/data-pagination";
 import { useRouter } from "next/navigation";
 import { NewAgentDialog } from "../components/new-agent-dialog";
+import type { AgentGetMany } from "../../types";
 
 function useDebouncedValue<T>(value: T, delay: number): T {
   const [debounced, setDebounced] = useState<T>(value);
@@ -34,7 +35,7 @@ function AgentsTable({ search, page, setFilters }: { search: string; page: numbe
   );
   
 
-  const filteredData = data?.items?.filter(agent =>
+  const filteredData = data?.items?.filter((agent: AgentGetMany[number]) =>
     agent.name.toLowerCase().includes(debouncedSearch.toLowerCase())
   );
 
@@ -84,7 +85,7 @@ export const AgentsView = () => {
       <div className="sticky top-0 z-10 bg-background shadow-sm pb-2 mb-2">
         <div className="flex items-center justify-between mb-1">
           <h1 className="text-2xl font-bold">Agent</h1>
-          <Button onClick={() => setOpen(true)}>+ New Agent</Button>
+          <Button onClick={() => setOpen(true)}>+ New Agents</Button>
         </div>
         <div className="mb-2">
           <label className="block text-sm font-medium mb-1" htmlFor="agent-search">Search by name</label>
