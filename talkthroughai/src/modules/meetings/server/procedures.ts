@@ -243,7 +243,7 @@ export const meetingsRouter = createTRPCRouter({
         }),
 
     getOne: protectedProcedure.input(z.object({ id: z.string() }))
-        .query(async ({ input, ctx }) => {
+        .query(async ({ input }) => {
             const [existingMeeting] = await db.select({
                 ...getTableColumns(meetings),
                 agent: agents,
