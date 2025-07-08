@@ -251,10 +251,7 @@ export const meetingsRouter = createTRPCRouter({
             })
                 .from(meetings)
                 .innerJoin(agents, eq(meetings.agentId, agents.id))
-                .where(and(
-                    eq(meetings.id, input.id),
-                    eq(meetings.userId, ctx.auth.user.id),
-                ));
+                .where(eq(meetings.id, input.id)); // Removed userId check
             if (!existingMeeting) {
                 throw new TRPCError({ code: "NOT_FOUND", message: "Meeting not found" });
             }
