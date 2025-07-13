@@ -25,9 +25,9 @@ interface Props {
 
 export const CompletedState = ({ data }: Props) => {
     return (
-        <div className="flex flex-col gap-y-4">
+        <div className="flex flex-col">
             <Tabs defaultValue="summary">
-                <div className="bg-background rounded-lg border px-3">
+                <div className="bg-background rounded-lg">
                     <ScrollArea>
                         <TabsList className="p-0 bg-background justify-start rounded-none h-13">
                             <TabsTrigger 

@@ -54,7 +54,7 @@ const MeetingContent = ({ meetingId }: Props) => {
     }
 
     return (
-        <div className="flex-1 py-4 px-4 md:px-8 flex flex-col gap-y-4">
+        <div className="flex-1 py-4 flex flex-col gap-y-4">
             <div className="text-lg font-bold">Meeting Details</div>
             <div>Meeting ID: {meetingId}</div>
             <div>Meeting Name: {data.name}</div>
@@ -144,7 +144,9 @@ export const MeetingIdView = ({ meetingId }: Props) => {
                 title="Loading meeting details"
                 description="Please wait while we load the meeting details"
             />}>
-                <MeetingContent meetingId={meetingId} />
+                <div className="bg-muted rounded-md min-h-[300px] p-0">
+                  <MeetingContent meetingId={meetingId} />
+                </div>
             </Suspense>
         </>
     );

@@ -22,7 +22,7 @@ export const MeetingsView = () => {
     }));
 
     return (
-        <div>
+        <div className="bg-muted min-h-[300px] rounded-md">
             {data.items.length === 0 ? (
                 <EmptyMeetingsState />
             ) : (
@@ -41,7 +41,9 @@ export const MeetingsView = () => {
 
 export const MeetingsViewLoading = () => {
     return(
-        <LoadingState title="Loading Meetings" description="This may take a few seconds..."/>
+        <div className="flex items-center justify-center min-h-[60vh] w-full">
+            <LoadingState title="Loading Meetings" description="This may take a few seconds..."/>
+        </div>
     )
 }
 
