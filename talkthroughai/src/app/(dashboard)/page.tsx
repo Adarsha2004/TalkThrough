@@ -4,7 +4,6 @@ import { redirect } from "next/navigation";
 import { db } from "@/db";
 import { agents } from "@/db/schema";
 import { eq } from "drizzle-orm";
-import { HomeView } from "@/modules/home/ui/views/home-view";
 
 const Page = async () => {
   const session = await auth.api.getSession({
