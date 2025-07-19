@@ -22,7 +22,7 @@ export const MeetingsView = () => {
     }));
 
     return (
-        <div className="bg-muted min-h-[300px] rounded-md">
+        <div className="bg-muted min-h-[300px] rounded-md px-4">
             {data.items.length === 0 ? (
                 <EmptyMeetingsState />
             ) : (

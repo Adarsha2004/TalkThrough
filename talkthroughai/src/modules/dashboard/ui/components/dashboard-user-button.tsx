@@ -63,7 +63,7 @@ export const DashboardUserButton = () => {
                                 variant="destructive"
                                 onClick={() => authClient.signOut({
                                     fetchOptions: {
-                                        onSuccess: () => router.push("/sign-in")
+                                        onSuccess: () => router.push("/")
                                     }
                                 })}
                             >
@@ -83,13 +83,16 @@ export const DashboardUserButton = () => {
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
-                <div className="relative w-full min-h-[48px]">
+                <div className="relative w-full min-h-[48px] group/sidebar-btn">
                     {/* L-shaped corners and border */}
                     <div className="absolute inset-0 pointer-events-none border border-gray-700 rounded-none" />
-                    <div className="absolute top-0 left-0 w-2 h-2 border-t border-l border-gray-500 -mt-px -ml-px pointer-events-none" />
-                    <div className="absolute top-0 right-0 w-2 h-2 border-t border-r border-gray-500 -mt-px -mr-px pointer-events-none" />
-                    <div className="absolute bottom-0 left-0 w-2 h-2 border-b border-l border-gray-500 -mb-px -ml-px pointer-events-none" />
-                    <div className="absolute bottom-0 right-0 w-2 h-2 border-b border-r border-gray-500 -mb-px -mr-px pointer-events-none" />
+                    {/* L-shaped corners on hover */}
+                    <div className="pointer-events-none">
+                      <div className="absolute top-0 left-0 w-2 h-2 border-t-2 border-l-2 border-purple-500 opacity-0 group-hover/sidebar-btn:opacity-100 transition-opacity" />
+                      <div className="absolute top-0 right-0 w-2 h-2 border-t-2 border-r-2 border-purple-500 opacity-0 group-hover/sidebar-btn:opacity-100 transition-opacity" />
+                      <div className="absolute bottom-0 left-0 w-2 h-2 border-b-2 border-l-2 border-purple-500 opacity-0 group-hover/sidebar-btn:opacity-100 transition-opacity" />
+                      <div className="absolute bottom-0 right-0 w-2 h-2 border-b-2 border-r-2 border-purple-500 opacity-0 group-hover/sidebar-btn:opacity-100 transition-opacity" />
+                    </div>
                     <Button variant="ghost" className="w-full h-12 justify-start items-center gap-x-3 px-2.5 bg-background">
                         <GeneratedAvatar 
                             seed={user.name || "User"}
@@ -117,7 +120,7 @@ export const DashboardUserButton = () => {
                     className="flex items-center gap-x-2 cursor-pointer"
                     onClick={() => authClient.signOut({
                         fetchOptions: {
-                            onSuccess: () => router.push("/sign-in")
+                            onSuccess: () => router.push("/")
                         }
                     })}
                 >

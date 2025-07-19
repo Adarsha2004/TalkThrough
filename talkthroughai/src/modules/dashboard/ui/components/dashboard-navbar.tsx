@@ -28,7 +28,7 @@ export const DashboardNavbar= () => {
     return (
         <>
         <DashbboardCommand open={commandOpen} setOpen={setCommandOpen}/>
-        <nav className="flex px-4 gap-x-2 items-center py-3 border-b bg-background">
+        <nav className="flex px-4 gap-x-2 items-center py-4 border-b bg-background">
             <Button className="size-9" variant="outline" onClick={toggleSidebar}>
                {isMobile
                  ? (openMobile ? <PanelLeftCloseIcon className="size-4"/> : <PanelLeftIcon className="size-4"/>)
@@ -38,7 +38,7 @@ export const DashboardNavbar= () => {
 
             <Button className="h-9 w-[300px] justify-start font-normal text-muted p-0" variant="outline" size="sm" asChild
             onClick={() => setCommandOpen((open: boolean) => !open)}>
-                <div className="flex items-center gap-2">
+                <div className="flex">
                     <Command>
                         <CommandInput placeholder="Search..." />
                     </Command>

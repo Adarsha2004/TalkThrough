@@ -82,21 +82,22 @@ export const AgentsView = () => {
   return (
     <div>
       {/* Sticky header with search and actions */}
-      <div className="sticky top-0 z-10 bg-background shadow-sm pb-2 mb-2">
+      <div className="sticky top-0 z-10 bg-background shadow-sm pb-2 mb-2 px-4">
         <div className="flex items-center justify-between mb-1">
           <h1 className="text-2xl font-bold">Agent</h1>
           <Button onClick={() => setOpen(true)}>+ New Agents</Button>
         </div>
         <div className="mb-2">
-          <label className="block text-sm font-medium mb-1" htmlFor="agent-search">Search by name</label>
-          <input
-            id="agent-search"
-            type="text"
-            value={search}
-            onChange={e => setFilters({ search: e.target.value })}
-            className="w-full border rounded px-3 py-2 bg-background text-foreground border-input"
-            placeholder="Type agent name..."
-          />
+          <div className="w-full max-w-sm">
+            <input
+              id="agent-search"
+              type="text"
+              value={search}
+              onChange={e => setFilters({ search: e.target.value })}
+              className="w-full border rounded px-3 py-2 bg-background text-foreground border-input"
+              placeholder="Type agent name..."
+            />
+          </div>
         </div>
       </div>
       <NewAgentDialog open={open} onOpenChange={setOpen} isMobile={isMobile} />

@@ -48,17 +48,20 @@ export function DashboardSidebar(){
     
     return (
         <Sidebar>
-            <SidebarHeader className="flex-shrink-0 relative p-4 border border-gray-700 bg-background">
-                {/* L-shaped corners */}
-                <div className="absolute top-0 left-0 w-2 h-2 border-t border-l border-gray-500 -mt-px -ml-px" />
-                <div className="absolute top-0 right-0 w-2 h-2 border-t border-r border-gray-500 -mt-px -mr-px" />
-                <div className="absolute bottom-0 left-0 w-2 h-2 border-b border-l border-gray-500 -mb-px -ml-px" />
-                <div className="absolute bottom-0 right-0 w-2 h-2 border-b border-r border-gray-500 -mb-px -mr-px" />
-                <div className="flex items-center justify-center">
+            <Link href="/" tabIndex={0} aria-label="Home" className="block">
+              <SidebarHeader className="flex items-center h-16 relative border border-gray-700 bg-background group/sidebar-header cursor-pointer">
+                  {/* L-shaped corners on hover */}
+                  <div className="pointer-events-none">
+                    <div className="absolute top-0 left-0 w-2 h-2 border-t-2 border-l-2 border-purple-500 opacity-0 group-hover/sidebar-header:opacity-100 transition-opacity" />
+                    <div className="absolute top-0 right-0 w-2 h-2 border-t-2 border-r-2 border-purple-500 opacity-0 group-hover/sidebar-header:opacity-100 transition-opacity" />
+                    <div className="absolute bottom-0 left-0 w-2 h-2 border-b-2 border-l-2 border-purple-500 opacity-0 group-hover/sidebar-header:opacity-100 transition-opacity" />
+                    <div className="absolute bottom-0 right-0 w-2 h-2 border-b-2 border-r-2 border-purple-500 opacity-0 group-hover/sidebar-header:opacity-100 transition-opacity" />
+                  </div>
+                  <div className="flex justify-center">
                     <h1 className="text-2xl">TalkThroughAI</h1>
-                </div>
-            </SidebarHeader>
-            <div className="border-b border-gray-700 mx-3" />
+                  </div>
+              </SidebarHeader>
+            </Link>
             <SidebarContent>
                 <SidebarMenu>
                     {firstSection.map((item) =>(
@@ -66,8 +69,15 @@ export function DashboardSidebar(){
                             <Link href={item.href} onClick={handleMenuClick}>
                                 <SidebarMenuButton
                                     isActive={pathname === item.href}
-                                    className="w-full"
+                                    className="w-full relative group/sidebar-btn"
                                 >
+                                    {/* L-shaped corners on hover */}
+                                    <div className="pointer-events-none">
+                                      <div className="absolute top-0 left-0 w-2 h-2 border-t-2 border-l-2 border-purple-500 opacity-0 group-hover/sidebar-btn:opacity-100 transition-opacity" />
+                                      <div className="absolute top-0 right-0 w-2 h-2 border-t-2 border-r-2 border-purple-500 opacity-0 group-hover/sidebar-btn:opacity-100 transition-opacity" />
+                                      <div className="absolute bottom-0 left-0 w-2 h-2 border-b-2 border-l-2 border-purple-500 opacity-0 group-hover/sidebar-btn:opacity-100 transition-opacity" />
+                                      <div className="absolute bottom-0 right-0 w-2 h-2 border-b-2 border-r-2 border-purple-500 opacity-0 group-hover/sidebar-btn:opacity-100 transition-opacity" />
+                                    </div>
                                     <item.icon className={cn("size-5 mr-3")} />
                                     <span>{item.label}</span>
                                 </SidebarMenuButton>
