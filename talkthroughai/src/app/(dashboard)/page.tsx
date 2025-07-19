@@ -56,7 +56,7 @@ const Page = async () => {
     console.log("Default agents seeded for user:", userId);
   }
 
-  return <HomeView />;
+  redirect('/');
 };
 
 export default Page;
