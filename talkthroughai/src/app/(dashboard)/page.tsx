@@ -1,9 +1,9 @@
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
-import { db } from "@/db";
-import { agents } from "@/db/schema";
-import { eq } from "drizzle-orm";
+// import { db } from "@/db";
+// import { agents } from "@/db/schema";
+// import { eq } from "drizzle-orm";
 import { HomeView } from "@/modules/home/ui/views/home-view";
 
 const Page = async () => {
