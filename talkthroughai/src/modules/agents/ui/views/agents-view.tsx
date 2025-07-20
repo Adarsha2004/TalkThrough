@@ -54,7 +54,7 @@ function AgentsTable({ search, page, setFilters }: { search: string; page: numbe
   return (
     <div className="bg-muted rounded-md min-h-[300px] p-4">
       <DataTable data={filteredData} columns={columns} 
-      onRowClick={(row)=>{router.push(`/agents/${row.id}`)}}/>
+      onRowClick={(row)=>{router.push(`/dashboard/agents/${row.id}`)}}/>
       <DataPagination
         page={page}
         totalPages={data?.totalPages || 1}

@@ -79,6 +79,9 @@ export const columns: ColumnDef<MeetingGetMany[number]>[] = [
                     No Duration
                 </span>
             ),
+        meta: {
+            className: "hidden sm:table-cell"
+        }
     },
     {
         accessorKey: "createdAt",

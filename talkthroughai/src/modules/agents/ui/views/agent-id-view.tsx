@@ -36,7 +36,7 @@ import { useIsMobile } from "@/hooks/use-mobile";
         trpc.agents.remove.mutationOptions({
             onSuccess:async ()=>{
                 await queryClient.invalidateQueries(trpc.agents.getMany.queryOptions({}));
-                router.push("/agents")
+                router.push("/dashboard/agents")
             },
             onError:(error) =>{
                 toast.error(error.message);

@@ -128,7 +128,7 @@ export const HomeView: FC = () => {
                         </Button>
                       </Link>
                     </div>
-                    <div className="flex flex-wrap justify-center gap-3 pt-16 md:pt-20">
+                    <div className="hidden md:flex flex-wrap justify-center gap-3 pt-16 md:pt-20">
                       <div className="inline-flex items-center rounded-full border border-gray-700 bg-gray-800/50 px-4 py-2 text-sm text-gray-300">
                         <Users className="mr-2 h-4 w-4 text-purple-400" aria-hidden="true" />
                         <span>Custom AI Agents</span>

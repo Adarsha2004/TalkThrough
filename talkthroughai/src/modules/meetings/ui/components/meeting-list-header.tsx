@@ -16,7 +16,7 @@ export const MeetingListHeader = () => {
 
 
   return (
-    <div className="sticky top-0 z-10 bg-background shadow-sm pb-2 mb-2 pl-4">
+    <div className="sticky top-0 z-10 bg-background shadow-sm pb-2 mb-2 px-4">
       <div className="flex items-center justify-between mb-1">
         <h1 className="text-2xl font-bold">My Meetings</h1>
         <Button onClick={() => setOpen(true)}>+ New Meeting</Button>
