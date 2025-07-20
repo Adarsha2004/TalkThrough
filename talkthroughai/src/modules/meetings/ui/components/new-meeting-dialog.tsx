@@ -32,7 +32,7 @@ export function NewMeetingDialog({ open, onOpenChange, isMobile }: NewMeetingDia
               <MeetingForm
                 onSuccess={(id) => {
                   onOpenChange(false);
-                  router.push(`/meetings/${id}`);
+                  router.push(`/dashboard/meetings/${id}`);
                 }}
                 onCancel={() => onOpenChange(false)}
                 onCreateAgent={handleCreateAgent}
@@ -49,7 +49,7 @@ export function NewMeetingDialog({ open, onOpenChange, isMobile }: NewMeetingDia
             <MeetingForm
               onSuccess={(id) => {
                 onOpenChange(false);
-                router.push(`/meetings/${id}`);
+                router.push(`/dashboard/meetings/${id}`);
               }}
               onCancel={() => onOpenChange(false)}
               onCreateAgent={handleCreateAgent}

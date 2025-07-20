@@ -80,7 +80,7 @@ export const CallLobby =({onJoin}:Props) => {
                     </div>
                     <div>
                         <Button asChild variant="ghost">
-                            <Link href="/meetings">
+                            <Link href="/dashboard/meetings">
                             Cancel
                             </Link>
                         </Button>

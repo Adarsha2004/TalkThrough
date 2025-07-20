@@ -57,12 +57,12 @@ export const SignInView = () => {
       {
         email: data.email,
         password: data.password,
-        callbackURL: "/meetings"
+        callbackURL: "/dashboard/meetings"
       },
       {
         onSuccess: async () => {
           setIsLoading(false)
-          router.push("/meetings");
+          router.push("/dashboard/meetings");
         },
         onError: () => {
           setError("Invalid email or password")
@@ -78,12 +78,12 @@ export const SignInView = () => {
     authClient.signIn.social(
       {
         provider: provider,
-        callbackURL: "/meetings"
+        callbackURL: "/dashboard/meetings"
       },
       {
         onSuccess: async () => {
           setIsLoading(false)
-          router.push("/meetings");
+          router.push("/dashboard/meetings");
         },
         onError: ({ error }) => {
           setError(error.message)

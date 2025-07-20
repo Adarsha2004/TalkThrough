@@ -101,7 +101,7 @@ export const MeetingIdView = ({ meetingId }: Props) => {
         trpc.meetings.remove.mutationOptions({
             onSuccess: () => {
                 queryClient.invalidateQueries({ queryKey: ['meetings'] });
-                router.push("/meetings");
+                router.push("/dashboard/meetings");
             }
         })
     );

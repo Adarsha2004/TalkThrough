@@ -15,7 +15,7 @@ export const CallEnded =() => {
                         <p className="text-sm">Summary will be available soon</p>
                     </div>
                     <Button asChild>
-                        <Link href="/meetings">Back to meetings</Link>
+                        <Link href="/dashboard/meetings">Back to meetings</Link>
                     </Button>
                 </div>
             </div>

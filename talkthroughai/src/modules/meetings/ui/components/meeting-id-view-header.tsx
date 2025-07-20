@@ -35,11 +35,11 @@ export const MeetingIdViewHeader = ({
                 <Breadcrumb>
                     <BreadcrumbList>
                         <BreadcrumbItem>
-                            <BreadcrumbLink href="/meetings">My Meetings</BreadcrumbLink>
+                            <BreadcrumbLink href="/dashboard/meetings">My Meetings</BreadcrumbLink>
                         </BreadcrumbItem>
                         <BreadcrumbSeparator><ChevronRight className="w-4 h-4" /></BreadcrumbSeparator>
                         <BreadcrumbItem>
-                            <Link href={`/meetings/${meetingId}`} className="font-bold">{meetingName}</Link>
+                            <Link href={`/dashboard/meetings/${meetingId}`} className="font-bold">{meetingName}</Link>
                         </BreadcrumbItem>
                     </BreadcrumbList>
                 </Breadcrumb>

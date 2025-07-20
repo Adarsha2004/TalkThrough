@@ -119,7 +119,7 @@ export const HomeView: FC = () => {
                     </div>
                     <div className="flex flex-col gap-3 min-[400px]:flex-row pt-4">
                       <Link
-                        href={session?.user ? "/meetings" : "/sign-in"}
+                        href={session?.user ? "/dashboard/meetings" : "/sign-in"}
                         tabIndex={0}
                         aria-label={session?.user ? "Go to Meetings" : "Sign In"}
                       >
@@ -250,7 +250,7 @@ export const HomeView: FC = () => {
               </div>
               <div className="flex flex-col gap-3 min-[400px]:flex-row pt-4">
                 <Link
-                  href={session?.user ? "/meetings" : "/sign-in"}
+                  href={session?.user ? "/dashboard/meetings" : "/sign-in"}
                   tabIndex={0}
                   aria-label={session?.user ? "Go to Meetings" : "Sign In"}
                 >

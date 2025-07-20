@@ -64,9 +64,9 @@ export const DashbboardCommand = ({ open, setOpen }: Props) => {
     const handleSelect = (item: { type: string, id: string }) => {
         setOpen(false);
         if (item.type === "meeting") {
-            router.push(`/meetings/${item.id}`);
+            router.push(`/dashboard/meetings/${item.id}`);
         } else if (item.type === "agent") {
-            router.push(`/agents/${item.id}`);
+            router.push(`/dashboard/agents/${item.id}`);
         }
     };
 

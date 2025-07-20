@@ -39,7 +39,7 @@ export const columns: ColumnDef<MeetingGetMany[number]>[] = [
         cell: ({ row }) => (
             <div className="flex flex-col justify-center py-3">
                 <Link
-                    href={`/meetings/${row.original.id}`}
+                    href={`/dashboard/meetings/${row.original.id}`}
                     className="font-bold text-base leading-tight hover:underline"
                 >
                     {row.original.name}
