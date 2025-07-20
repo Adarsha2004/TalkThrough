@@ -101,6 +101,7 @@ const Page = async () => {
     console.log("Default agents seeded for user:", userId);
     redirect("/dashboard/meetings");
   }
+  redirect("/dashboard/meetings");
 };
 
 export default Page;
