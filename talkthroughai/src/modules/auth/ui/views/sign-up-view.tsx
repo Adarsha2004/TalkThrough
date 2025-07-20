@@ -64,13 +64,13 @@ export const SignUpView = () => {
         name: data.name,
         email: data.email,
         password: data.password,
-        callbackURL: "/",
+        callbackURL: "/dashboard",
       },
       {
         onSuccess: async () => {
           setShowSuccess(true)
           setIsLoading(false)
-          router.push("/");
+          router.push("/dashboard");
         },
         onError: ({ error }) => {
           setError(error.message)
@@ -86,12 +86,12 @@ export const SignUpView = () => {
     authClient.signIn.social(
       {
         provider: provider,
-        callbackURL: "/",
+        callbackURL: "/dashboard",
       },
       {
         onSuccess: async () => {
           setIsLoading(false)
-          router.push("/");
+          router.push("/dashboard");
         },
         onError: ({ error }) => {
           setError(error.message)
